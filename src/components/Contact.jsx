@@ -11,7 +11,7 @@ const Contact = () => {
     const formData = new FormData(event.target);
 
     //hide access key
-    formData.append("access_key", "access_key_here");
+    formData.append("access_key", import.meta.env.VITE_KEY);
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",

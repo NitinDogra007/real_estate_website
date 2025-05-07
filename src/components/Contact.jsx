@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const Contact = () => {
+  const [result, setResult] = useState("");
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target);
+
+    //hide access key
+    formData.append("access_key", "85302629-b844-4b64-9aa4-343f245f46b9");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setResult("");
+      toast.success('Form Submitted Successfully')
+      event.target.reset();
+    } else {
+      console.log("Error", data);
+      toast.error(data.message);
+      setResult("");
+    }
+  };
   return (
     <div
       className="text-center p-6 py-20 lg:px-32 w-full overflow-hidden"
@@ -16,7 +44,10 @@ const Contact = () => {
         Ready to Make a Move? Let's Build Your Future Together
       </p>
 
-      <form action="" className="max-w-2xl mx-auto text-gray-600 pt-8">
+      <form
+        onSubmit={onSubmit}
+        className="max-w-2xl mx-auto text-gray-600 pt-8"
+      >
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/2 text-left">
             Your Name
@@ -49,7 +80,7 @@ const Contact = () => {
           ></textarea>
         </div>
         <button className="bg-blue-600 text-white py-2 px-12 mb-10 rounded">
-          Send Message
+          {result ? result : "Send Message"}
         </button>
       </form>
     </div>

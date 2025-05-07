@@ -23,7 +23,7 @@ This is a modern, responsive real estate website built with **React**. It showca
 - **Tailwind CSS** – for styling
 
 ## 📁 Project Structure
-
+```
 src/
 ├── components/
 │ ├── Header.jsx
@@ -34,6 +34,7 @@ src/
 │ └── Footer.jsx
 ├── App.jsx
 └── index.js
+```
 
 ## 🖼️ Preview
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const [result, setResult] = useState("");
@@ -10,7 +11,7 @@ const Contact = () => {
     const formData = new FormData(event.target);
 
     //hide access key
-    formData.append("access_key", "85302629-b844-4b64-9aa4-343f245f46b9");
+    formData.append("access_key", "access_key_here");
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -21,7 +22,7 @@ const Contact = () => {
 
     if (data.success) {
       setResult("");
-      toast.success('Form Submitted Successfully')
+      toast.success("Form Submitted Successfully");
       event.target.reset();
     } else {
       console.log("Error", data);
@@ -30,7 +31,11 @@ const Contact = () => {
     }
   };
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: -200 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
       className="text-center p-6 py-20 lg:px-32 w-full overflow-hidden"
       id="Contact"
     >
@@ -83,7 +88,7 @@ const Contact = () => {
           {result ? result : "Send Message"}
         </button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 
